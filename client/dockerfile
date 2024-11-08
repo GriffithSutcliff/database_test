@@ -1,0 +1,23 @@
+# client/Dockerfile
+
+# Используем Node.js image для сборки React
+FROM node:16
+
+# Рабочая директория
+WORKDIR /app
+
+# Копируем package.json и устанавливаем зависимости
+COPY package*.json ./
+RUN npm install
+
+# Копируем весь проект
+COPY . .
+
+# Запускаем сборку React
+RUN npm run build
+
+# Используем nginx для раздачи статических файлов
+FROM nginx:alpine
+COPY --from=0 /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

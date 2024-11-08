@@ -1,0 +1,22 @@
+# server/Dockerfile
+
+# Используем Node.js image
+FROM node:16
+
+# Создаем рабочую директорию
+WORKDIR /app
+
+# Копируем файлы package.json и package-lock.json
+COPY package*.json ./
+
+# Устанавливаем зависимости
+RUN npm install
+
+# Копируем все файлы в рабочую директорию
+COPY . .
+
+# Указываем порт, на котором будет работать сервер
+EXPOSE 5000
+
+# Запускаем сервер
+CMD ["node", "index.js"]
