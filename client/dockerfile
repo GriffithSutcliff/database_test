@@ -1,5 +1,3 @@
-# client/Dockerfile
-
 # Используем Node.js image для сборки React
 FROM node:16
 
@@ -16,8 +14,12 @@ COPY . .
 # Запускаем сборку React
 RUN npm run build
 
-# Используем nginx для раздачи статических файлов
-FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Устанавливаем сервер для обслуживания статических файлов
+# Используем 'serve', который будет обслуживать ваши статику
+RUN npm install -g serve
+
+# Открываем порт, на котором будет работать приложение
+EXPOSE 3000
+
+# Запускаем приложение с помощью serve на порту 3000
+CMD ["serve", "-s", "build", "-l", "3000"]
