@@ -10,10 +10,10 @@ const port = 5000;
 
 // Подключение к базе данных
 const pool = new Pool({
-  user: "your_db_user",
+  user: "postgres",
   host: "db",
-  database: "your_db_name",
-  password: "your_db_password",
+  database: "testdatabase",
+  password: "root",
   port: 5432,
 });
 
