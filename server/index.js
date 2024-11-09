@@ -1,9 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg');
-const dotenv = require('dotenv');
 const cors = require('cors'); // подключим cors, без него реакт не сможет взаимодействовать с бд
-
-dotenv.config();
 
 const app = express();
 const port = 5000;
